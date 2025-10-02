@@ -12,4 +12,5 @@ func main() {
 	arr.Display()
 	arr.InsertManual(9, arr.Len()/2)
 	arr.Display()
+	arr.InsertWithCopy(10, 4)
 }
