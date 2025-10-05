@@ -1,6 +1,8 @@
 package linkedlist
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type node struct {
 	value int
@@ -8,7 +10,8 @@ type node struct {
 }
 
 type linkedList struct {
-	list *node
+	head *node
+	size int
 }
 
 // Too much complex to debug and understand
@@ -18,38 +21,108 @@ func (n *node) Iter() func(func(*node) bool) {
 			if !yield(n) {
 				return
 			}
-			n.value += 10
 			n = n.next
 		}
 	}
 }
 
-func NewLinkedList(value int) *linkedList {
-	return &linkedList{
-		list: &node{
-			value,
-			&node{
-				value + 10,
-				nil,
-			},
-		},
+func NewLinkedList() *linkedList {
+	return &linkedList{new(node), 0}
+}
+
+func (l *linkedList) Populate(size int) {
+	head := l.head
+	for i := range size {
+		head.value = i + 1
+		if i != size-1 {
+			head.next = new(node)
+			head = head.next
+		}
 	}
+	l.size = size
 }
 
-func (l *linkedList) Head() *node {
-	return l.list
-}
-
-func (l *linkedList) Display() {
-	// for node := range l.list.Iter() {
-	// 	fmt.Printf("%d->", node.value)
-	// }
-
+func (l *linkedList) DisplayWithLoop() {
 	//temporary iterator
-	head := l.list
+	head := l.head
 	for head != nil {
 		fmt.Printf("%d->", head.value)
 		head = head.next
 	}
 	fmt.Println(nil)
+}
+
+func (l *linkedList) DisplayWithIterator() {
+	for node := range l.head.Iter() {
+		fmt.Printf("%d->", node.value)
+	}
+	fmt.Println(nil)
+}
+
+func (l *linkedList) AppendNode(value int) {
+	head := l.head
+
+	// Iterate till the end of the list
+	for head.next != nil {
+		head = head.next
+	}
+
+	head.next = new(node)
+	head.next.value = value
+	l.size++
+}
+
+func (l *linkedList) InsertNode(value int) {
+	// create new head
+	node := &node{value, l.head}
+	l.head = node
+	l.size++
+}
+
+func (l *linkedList) DeleteNodeWithValue(value int) {
+	var prev *node
+	head := l.head
+
+	for head.value != value {
+		prev = head
+		head = head.next
+	}
+
+	prev.next = head.next
+	l.size--
+}
+
+func (l *linkedList) deleteNode(position int) {
+	var prev *node
+	head := l.head
+
+	// first position is head
+	switch position {
+	case 1:
+		l.head = head.next
+		l.size--
+		return
+	case -1:
+		position = l.size
+	}
+	for range position - 1 {
+		if head == nil {
+			fmt.Println("invalid position")
+			return
+		}
+
+		prev = head
+		head = head.next
+	}
+
+	prev.next = head.next
+	l.size--
+}
+
+func (l *linkedList) DeleteAtBeginning() {
+	l.deleteNode(1)
+}
+
+func (l *linkedList) DeleteAtEnd() {
+	l.deleteNode(-1)
 }

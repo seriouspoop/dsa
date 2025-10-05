@@ -23,6 +23,17 @@ func main() {
 	println(length)
 
 	// Linked List
-	ll := linkedlist.NewLinkedList(10)
-	ll.Display()
+	ll := linkedlist.NewLinkedList()
+	ll.Populate(5)
+	ll.DisplayWithLoop()
+	ll.AppendNode(99)
+	ll.DisplayWithIterator()
+	ll.InsertNode(0)
+	ll.DisplayWithIterator()
+	ll.DeleteNodeWithValue(99)
+	ll.DisplayWithIterator()
+	ll.DeleteAtBeginning()
+	ll.DisplayWithIterator()
+	ll.DeleteAtEnd()
+	ll.DisplayWithIterator()
 }
