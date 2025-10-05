@@ -27,10 +27,13 @@ func (n *node) Iter() func(func(*node) bool) {
 }
 
 func NewLinkedList() *linkedList {
-	return &linkedList{new(node), 0}
+	return &linkedList{nil, 0}
 }
 
 func (l *linkedList) Populate(size int) {
+	if l.head == nil && size > 0 {
+		l.head = new(node)
+	}
 	head := l.head
 	for i := range size {
 		head.value = i + 1
@@ -60,8 +63,14 @@ func (l *linkedList) DisplayWithIterator() {
 }
 
 func (l *linkedList) AppendNode(value int) {
-	head := l.head
 
+	if l.head == nil {
+		l.head = &node{value, nil}
+		l.size++
+		return
+	}
+
+	head := l.head
 	// Iterate till the end of the list
 	for head.next != nil {
 		head = head.next
@@ -171,6 +180,7 @@ func (l *linkedList) ReverseWithLinks() {
 
 	for end != nil {
 		temp := end
+		end = end.next
 		temp.next = start
 		start = temp
 	}
