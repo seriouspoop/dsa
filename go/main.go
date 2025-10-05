@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/seriouspoop/dsa/arrays"
 	"github.com/seriouspoop/dsa/linkedlist"
 )
@@ -20,7 +22,7 @@ func main() {
 	arr.Display()
 
 	length := arr.Len()
-	println(length)
+	fmt.Println(length)
 
 	// Linked List
 	ll := linkedlist.NewLinkedList()
@@ -32,8 +34,10 @@ func main() {
 	ll.DisplayWithIterator()
 	ll.DeleteNodeWithValue(99)
 	ll.DisplayWithIterator()
-	ll.DeleteAtBeginning()
+	ll.DeleteNodeAtBeginning()
 	ll.DisplayWithIterator()
-	ll.DeleteAtEnd()
+	ll.DeleteNodeAtEnd()
+	ll.DisplayWithIterator()
+	ll.InsertNodeAtPosition(10, 2)
 	ll.DisplayWithIterator()
 }

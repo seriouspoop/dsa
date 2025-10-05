@@ -93,6 +93,11 @@ func (l *linkedList) DeleteNodeWithValue(value int) {
 }
 
 func (l *linkedList) deleteNode(position int) {
+	if position > l.size {
+		fmt.Println("invalid position")
+		return
+	}
+
 	var prev *node
 	head := l.head
 
@@ -106,11 +111,6 @@ func (l *linkedList) deleteNode(position int) {
 		position = l.size
 	}
 	for range position - 1 {
-		if head == nil {
-			fmt.Println("invalid position")
-			return
-		}
-
 		prev = head
 		head = head.next
 	}
@@ -119,10 +119,30 @@ func (l *linkedList) deleteNode(position int) {
 	l.size--
 }
 
-func (l *linkedList) DeleteAtBeginning() {
+func (l *linkedList) DeleteNodeAtBeginning() {
 	l.deleteNode(1)
 }
 
-func (l *linkedList) DeleteAtEnd() {
+func (l *linkedList) DeleteNodeAtEnd() {
 	l.deleteNode(-1)
+}
+
+func (l *linkedList) DeleteNodeAtPosition(pos int) {
+	l.deleteNode(pos)
+}
+
+func (l *linkedList) InsertNodeAtPosition(value, pos int) {
+	if pos > l.size {
+		fmt.Println("invalid position")
+		return
+	}
+	head := l.head
+	// (pos - 1) for converting numbers to indexes, -1 for stopping at the previous node
+	for range (pos - 1) - 1 {
+		head = head.next
+	}
+
+	newNode := &node{value, head.next}
+	head.next = newNode
+	l.size++
 }
