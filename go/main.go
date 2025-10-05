@@ -14,10 +14,8 @@ func main() {
 	arr.Display()
 	arr.Reverse()
 	arr.Display()
-
 	arr.InsertManual(99, 2)
 	arr.Display()
-
 	arr.InsertWithCopy(88, 3)
 	arr.Display()
 
@@ -40,4 +38,8 @@ func main() {
 	ll.DisplayWithIterator()
 	ll.InsertNodeAtPosition(10, 2)
 	ll.DisplayWithIterator()
+	ll.ReverseWithSlice()
+	ll.DisplayWithIterator()
+	ll.ReverseWithLinks()
+
 }

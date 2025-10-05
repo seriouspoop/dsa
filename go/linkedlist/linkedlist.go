@@ -146,3 +146,34 @@ func (l *linkedList) InsertNodeAtPosition(value, pos int) {
 	head.next = newNode
 	l.size++
 }
+
+func (l *linkedList) ReverseWithSlice() {
+	// This initializes the slice with zero value. append won't work
+	valueSlice := make([]int, l.size)
+
+	head := l.head
+	// append the first value
+	for i := range l.size {
+		valueSlice[i] = head.value
+		head = head.next
+	}
+
+	head = l.head
+	for i := range l.size {
+		head.value = valueSlice[(l.size-1)-i]
+		head = head.next
+	}
+}
+
+func (l *linkedList) ReverseWithLinks() {
+	var start *node = nil
+	end := l.head
+
+	for end != nil {
+		temp := end
+		temp.next = start
+		start = temp
+	}
+
+	l.head = start
+}
